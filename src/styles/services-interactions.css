@@ -1,0 +1,65 @@
+/* A precise ink fill with a responsive disclosure, scoped to What I do. */
+#services .services-list { overflow-anchor: none; }
+#services .service-row {
+  --service-text: var(--ink);
+  --service-muted: var(--muted);
+  color: var(--service-text);
+}
+#services .service-row::before {
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform .42s var(--ease);
+}
+#services .service-row summary {
+  color: var(--service-text);
+  transition: color .2s ease;
+}
+#services .service-number,
+#services .service-meta { opacity: .8; }
+#services .service-name { transition: transform .42s var(--ease); }
+#services .service-expand {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 21px;
+  line-height: 1;
+  transition: transform .32s var(--ease), color .2s ease;
+}
+#services .service-description-panel { overflow: hidden; }
+#services .service-description {
+  margin: 0 35px 0 46px;
+  padding-bottom: 30px;
+  color: var(--service-muted);
+  transition: opacity .2s ease, transform .32s var(--ease), color .2s ease;
+}
+#services .service-row:is([data-expanded='true'], [open]:not([data-expanded='false']), :has(summary:focus-visible)) {
+  --service-text: var(--paper);
+  --service-muted: #d3d5c9;
+}
+#services .service-row:is([data-expanded='true'], [open]:not([data-expanded='false']), :has(summary:focus-visible))::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+#services .service-row[data-expanded='false'] .service-expand { transform: none; }
+#services .service-row[data-expanded='false'] .service-description { opacity: 0; transform: translateY(6px); }
+#services .service-row[data-expanded='false']:not(:hover):not(:has(summary:focus-visible))::before { transform: scaleX(0); transform-origin: right; }
+@media (hover: hover) {
+  #services .service-row:hover {
+    --service-text: var(--paper);
+    --service-muted: #d3d5c9;
+  }
+  #services .service-row:hover::before { transform: scaleX(1); transform-origin: left; }
+  #services .service-row:hover .service-name { transform: translateX(5px); }
+}
+@media (max-width: 599px) {
+  #services .service-description { margin-left: 34px; margin-right: 10px; padding-bottom: 25px; }
+  #services .service-expand { width: 22px; height: 22px; font-size: 18px; }
+}
+html[data-motion='reduce'] #services .service-row::before,
+html[data-motion='reduce'] #services .service-row summary,
+html[data-motion='reduce'] #services .service-description,
+html[data-motion='reduce'] #services .service-name,
+html[data-motion='reduce'] #services .service-expand { transition: none; }

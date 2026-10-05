@@ -1,0 +1,34 @@
+/* These masks belong only to the About skills and photograph. */
+#about .skills-wave-word {
+  display: inline-block;
+  overflow: clip;
+  white-space: nowrap;
+  vertical-align: bottom;
+  padding: .08em .03em .12em;
+  margin: -.08em -.03em -.12em;
+}
+
+#about .skills-wave-char { display: inline-block; }
+
+#about [data-portrait-reveal] { position: relative; isolation: isolate; }
+
+/* GSAP enables the cover; without motion the photograph is fully visible. */
+#about .portrait-wave-mask {
+  position: absolute;
+  inset: -1px;
+  display: none;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  pointer-events: none;
+}
+
+#about .portrait-wave-column {
+  background: var(--paper);
+  margin-inline: -.6px;
+}
+
+html[data-motion='reduce'] #about .skills-wave-char,
+html[data-motion='reduce'] #about [data-portrait-reveal] img {
+  transform: none !important;
+}
+
+html[data-motion='reduce'] #about .portrait-wave-mask { display: none !important; }

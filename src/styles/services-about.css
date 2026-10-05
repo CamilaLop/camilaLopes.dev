@@ -1,0 +1,20 @@
+/* Stable section geometry lets the existing portrait and skills waves keep their timing. */
+#about .about-entry-rule {
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  height: 1px;
+  background: var(--line);
+  pointer-events: none;
+}
+#about .about-title-mask {
+  display: block;
+  overflow: clip;
+  padding: .12em .03em;
+  margin: -.12em -.03em;
+}
+#about [data-about-entry-title] { display: block; }
+html[data-motion='reduce'] #about .about-entry-rule,
+html[data-motion='reduce'] #about [data-about-entry-label],
+html[data-motion='reduce'] #about [data-about-entry-title] { transform: none !important; opacity: 1 !important; }

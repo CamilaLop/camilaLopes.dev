@@ -1,0 +1,12 @@
+/* Padded word masks preserve accents, descenders and natural word wrapping. */
+.title-reveal-text { display: block; }
+.title-reveal-word {
+  display: inline-block;
+  overflow: clip;
+  white-space: nowrap;
+  vertical-align: baseline;
+  padding: .16em .04em .14em;
+  margin: -.16em -.04em -.14em;
+}
+.title-reveal-char { display: inline-block; }
+html[data-motion='reduce'] [data-title-char] { transform: none !important; }

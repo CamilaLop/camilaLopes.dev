@@ -1,0 +1,2 @@
+/* Preserve the supplied SVG and give its light paths contrast on the paper header. */
+.site-header .brand img[src$='.svg'] { filter: brightness(0); opacity: .64; }
