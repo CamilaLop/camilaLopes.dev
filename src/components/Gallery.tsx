@@ -1,3 +1,4 @@
+import { titleFont } from '../utils/titleFont';
 import { useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useLocale } from '../context/LocaleContext';
 import { portfolioProjects, type PortfolioProject } from '../data/projects';
@@ -5,6 +6,7 @@ import { projectCopy } from '../data/projectCopy';
 import { SectionLabel } from './SectionLabel';
 import '../styles/cases-horizontal.css';
 import '../styles/gallery-coverflow.css';
+import '../styles/gallery-wave.css';
 
 const remaining = portfolioProjects.slice(3);
 
@@ -64,7 +66,7 @@ export function Gallery({ onInspect }: { onInspect: (project: PortfolioProject) 
   return <section ref={root} className="gallery gallery--horizontal gallery--coverflow section-ink" id="gallery" aria-labelledby="gallery-title" data-current-case={current}>
     <div className="section-rule" data-rule />
     <div className="gallery-entry-outer"><div className="gallery-entry-inner"><div className="gallery-entry-gesture"><header className="gallery-head">
-      <div><SectionLabel number="02">{t.gallery.label}</SectionLabel><h2 id="gallery-title" className="display gallery-title" aria-label={`${t.gallery.title} (05)`}><span className="gallery-title-mask" aria-hidden="true">{Array.from(t.gallery.title).map((letter, index) => <span className="gallery-title-char" key={index}>{letter}</span>)}</span><span className="title-count" aria-hidden="true">(05)</span></h2></div>
+      <div><SectionLabel number="02">{t.gallery.label}</SectionLabel><h2 id="gallery-title" className={`display gallery-title${titleFont(t.gallery.title)}`} aria-label={`${t.gallery.title} (05)`}><span className="gallery-title-mask" aria-hidden="true">{Array.from(t.gallery.title).map((letter, index) => <span className="gallery-title-char" key={index}>{letter}</span>)}</span><span className="title-count" aria-hidden="true">(05)</span></h2></div>
       <div className="gallery-intro"><p className="editorial-note">{t.gallery.lead}</p><p>{t.gallery.small}</p></div>
     </header></div></div></div>
     <div className="cases-lane"><div className="cases-stage">
@@ -83,6 +85,7 @@ export function Gallery({ onInspect }: { onInspect: (project: PortfolioProject) 
       return <article className={`gallery-case gallery-case--${i + 1}`} key={project.id} data-gallery-active={current === i ? 'true' : undefined}>
         <div className="case-perspective"><div className="case-scroll-pose"><div className="case-pointer-pose"><button className="gallery-image project-media" data-case-reveal data-horizontal-case-reveal type="button" onClick={() => onInspect(project)} aria-label={`${t.gallery.inspect}: ${project.title}`}>
           <span className="case-reveal-mask"><span className="case-reveal-surface"><span className="case-image-parallax"><img src={project.image} alt={`${project.title} — ${copy.category}`} width={project.imageWidth} height={project.imageHeight} loading="lazy" decoding="async" /></span></span></span>
+          <span className="gallery-wave-mask" aria-hidden="true">{Array.from({ length: 10 }, (_, column) => <span key={column} />)}</span>
           <span className="image-link-indicator" aria-hidden="true">↗</span>
         </button></div></div></div>
         <div className="gallery-caption"><div><span className="micro">0{i + 4} / {t.projects.status[project.status]}</span><h3><button type="button" onClick={() => onInspect(project)}>{project.title}</button></h3><p>{copy.category}</p></div><span className="gallery-caption-arrow" aria-hidden="true">↗</span></div>

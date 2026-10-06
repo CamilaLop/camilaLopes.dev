@@ -1,3 +1,4 @@
+import { titleFont } from '../utils/titleFont';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useLocale } from '../context/LocaleContext';
 import { portfolioProjects, type PortfolioProject } from '../data/projects';
@@ -83,7 +84,7 @@ export function Projects({ onInspect, reduced, videoPaused, onVideoPauseChange }
             {index > 0 && media.type === 'video' && !reduced && <button className="project-video-toggle" type="button" aria-label={`${playingPreviews[project.id] ? videoLabels[locale].pause : videoLabels[locale].play} — ${project.title}`} onClick={() => togglePreview(project.id)}><span aria-hidden="true">{playingPreviews[project.id] ? 'Ⅱ' : '▶'}</span></button>}
             <div className="project-heading-wrap">
               <p className="project-category micro">{copy.category}</p>
-              <h3 className="project-heading display" id={`title-${project.id}`} aria-label={project.title}>{project.title.split(' ').map((word, wordIndex) => <span className="project-word-mask" key={wordIndex} aria-hidden="true">{Array.from(word).map((letter, letterIndex) => <span className="project-heading-char" key={letterIndex}>{letter}</span>)}</span>)}</h3>
+              <h3 className={`project-heading display${titleFont(project.title)}`} id={`title-${project.id}`} aria-label={project.title}>{project.title.split(' ').map((word, wordIndex) => <span className="project-word-mask" key={wordIndex} aria-hidden="true">{Array.from(word).map((letter, letterIndex) => <span className="project-heading-char" key={letterIndex}>{letter}</span>)}</span>)}</h3>
             </div>
             <div className="project-panel-bottom">
               <div className="project-technology"><span className="micro">{t.projects.stack}</span><p>{project.stack.join(' / ')}</p></div>

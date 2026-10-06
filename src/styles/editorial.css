@@ -150,6 +150,10 @@ html[data-motion='full'] .hero[data-hero-loading='true'] .hero-intro-text { tran
 .hero-ending { position: absolute; left: 9%; bottom: 18%; width: min(480px, 38%); z-index: 4; padding: 26px 34px 30px; background: var(--paper); opacity: 0; }
 .hero-ending > p { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: clamp(36px, 4vw, 62px); letter-spacing: -.055em; line-height: 1.03; margin: 18px 0; }
 .hero-ending > span:last-child { font-size: 12px; }
+.hero-video-toggle,
+.project-video-toggle {
+  display: none;
+}
 
 /* A native scroll sequence: opposing masks, full-frame media and a character entrance. */
 .projects { --project-step: 85svh; position: relative; z-index: 2; margin-top: -16svh; background: var(--ink); color: var(--paper); }

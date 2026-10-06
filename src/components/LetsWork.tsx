@@ -1,3 +1,4 @@
+import { titleFont } from '../utils/titleFont';
 import { useState, type FormEvent } from 'react';
 import { useLocale } from '../context/LocaleContext';
 import { contactDetails } from '../data/contact';
@@ -31,7 +32,7 @@ export function LetsWork({ reduced, onToggleMotion }: { reduced: boolean; onTogg
   return <section className="contact" id="contact" aria-labelledby="contact-title">
     <div className="section-rule" data-rule />
     <div className="contact-layout">
-      <div className="contact-copy"><div data-reveal><SectionLabel number="05">{t.contact.label}</SectionLabel></div><h2 id="contact-title" className="display contact-title" data-title-reveal aria-label={t.contact.title.join(' ')}>{t.contact.title.map(line => <span key={line}><TitleRevealText text={line} /></span>)}</h2><p className="contact-availability micro" data-reveal><span aria-hidden="true" />{t.contact.status}</p><p className="contact-lead" data-reveal>{t.contact.lead}</p><p className="contact-small" data-reveal>{t.contact.small}</p></div>
+      <div className="contact-copy"><div data-reveal><SectionLabel number="05">{t.contact.label}</SectionLabel></div><h2 id="contact-title" className={`display contact-title${titleFont(t.contact.title.join(' '))}`} data-title-reveal aria-label={t.contact.title.join(' ')}>{t.contact.title.map(line => <span key={line}><TitleRevealText text={line} /></span>)}</h2><p className="contact-availability micro" data-reveal><span aria-hidden="true" />{t.contact.status}</p><p className="contact-lead" data-reveal>{t.contact.lead}</p><p className="contact-small" data-reveal>{t.contact.small}</p></div>
       <form className="contact-form" onSubmit={submit} onChange={() => { setStatus(''); setBrief(''); }} data-reveal>
         <div className="form-first-row"><div className="form-field"><label htmlFor="contact-name">{t.contact.form[0]}</label><input id="contact-name" name="name" autoComplete="name" required maxLength={120} placeholder={t.contact.placeholders[0]} /></div><div className="form-field"><label htmlFor="contact-email">{t.contact.form[1]}</label><input id="contact-email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder={t.contact.placeholders[1]} /></div></div>
         <div className="form-field"><label htmlFor="contact-objective">{t.contact.form[2]}</label><input id="contact-objective" name="objective" required maxLength={200} placeholder={t.contact.placeholders[2]} /></div>

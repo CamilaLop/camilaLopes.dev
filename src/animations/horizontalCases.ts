@@ -91,23 +91,30 @@ export function initHorizontalCases(scope: HTMLElement, desktop: boolean) {
     });
 
     cards.forEach((card, index) => {
-      const mask = card.querySelector<HTMLElement>('.case-reveal-mask');
-      const surface = card.querySelector<HTMLElement>('.case-reveal-surface');
+      const mask = card.querySelector<HTMLElement>('.gallery-wave-mask');
       const image = card.querySelector('img');
       const caption = card.querySelector<HTMLElement>('.gallery-caption');
-      if (!mask || !surface || !image || !caption) return;
+      if (!mask || !image || !caption) return;
+      gsap.set(mask, { display: 'grid' });
       const reveal = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
           id: `cases-image-${index}`, trigger: lane,
-          start: 'clamp(top 92%)', end: 'clamp(top 34%)',
+          // The first card enters vertically; later cards reveal as they
+          // approach the center along the existing horizontal scroll interval.
+          start: index === 0 ? 'clamp(top 92%)' : () =>
+            movement.scrollTrigger!.start + Math.max(0, stops[index] - viewport.clientWidth * .6) / distance * travel,
+          end: index === 0 ? 'clamp(top 34%)' : () =>
+            movement.scrollTrigger!.start + stops[index] / distance * travel,
           scrub: .65, invalidateOnRefresh: true
         }
       });
-      reveal.fromTo(mask, { yPercent: 100 }, { yPercent: 0, duration: 1 }, 0);
-      reveal.fromTo(surface, { yPercent: -100 }, { yPercent: 0, duration: 1 }, 0);
-      reveal.fromTo(image, { xPercent: desktop ? 3 : 1.5, scale: 1.035 }, {
-        xPercent: 0, scale: 1, duration: 1
+      reveal.fromTo(mask.children, { yPercent: 0 }, {
+        yPercent: -101, duration: 1.15, ease: 'power2.out',
+        stagger: column => column * .035 + Math.sin(column * .8) * .012
+      }, 0);
+      reveal.fromTo(image, { yPercent: desktop ? 5 : 3, scale: 1.035 }, {
+        yPercent: 0, scale: 1, duration: 1.45
       }, 0);
       reveal.fromTo(caption, { y: 16, opacity: .5 }, { y: 0, opacity: 1, duration: .8 }, .2);
     });

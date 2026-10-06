@@ -1,3 +1,4 @@
+import { titleFont } from '../utils/titleFont';
 import { useLocale } from '../context/LocaleContext';
 import { contactDetails } from '../data/contact';
 import { SectionLabel } from './SectionLabel';
@@ -16,7 +17,7 @@ export function AboutMe() {
   const { t } = useLocale();
   return <section className="about section-paper" id="about" aria-labelledby="about-title">
     <div className="about-entry-rule" aria-hidden="true" />
-    <header className="about-head"><div data-about-entry-label><SectionLabel number="04">{t.about.label}</SectionLabel></div><h2 id="about-title" className="display about-title" aria-label={t.about.title}><span className="about-title-mask"><span data-about-entry-title><TitleRevealText text={t.about.title} /></span></span></h2></header>
+    <header className="about-head"><div data-about-entry-label><SectionLabel number="04">{t.about.label}</SectionLabel></div><h2 id="about-title" className={`display about-title${titleFont(t.about.title)}`} aria-label={t.about.title}><span className="about-title-mask"><span data-about-entry-title><TitleRevealText text={t.about.title} /></span></span></h2></header>
     <div className="about-grid">
       <div className="about-copy"><p className="about-lead" data-reveal>{t.about.lead}</p><div className="about-paragraphs" data-reveal><p>{t.about.copy1}</p><p>{t.about.copy2}</p>{contactDetails.resume && <a className="text-link" href={contactDetails.resume} target="_blank" rel="noopener noreferrer">{t.contact.resume}<span aria-hidden="true">↗</span></a>}</div></div>
       <figure className="about-portrait"><div className="portrait-image" data-portrait-reveal><img src="/assets/about-camila.png" alt={t.about.portrait} width="527" height="549" loading="lazy" decoding="async" /><div className="portrait-wave-mask" aria-hidden="true">{Array.from({ length: 10 }, (_, index) => <span className="portrait-wave-column" key={index} />)}</div></div><figcaption data-reveal><span>{t.about.education}</span><span>Estácio / 2025</span></figcaption></figure>

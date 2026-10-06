@@ -10,7 +10,7 @@ export function useMotionPreference() {
       const saved = window.localStorage.getItem(storageKey);
       if (saved === 'full' || saved === 'reduce') return saved;
     } catch { /* The choice still works for this visit when storage is unavailable. */ }
-    return 'system';
+    return 'full';
   });
   const [systemReduced, setSystemReduced] = useState(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches

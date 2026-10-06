@@ -3,13 +3,13 @@ import gsap from 'gsap';
 /** One pass from above; its host timeline owns the loading or scroll timing. */
 export function addTitleLetterReveal(
   timeline: gsap.core.Timeline, letters: HTMLElement[], position = 0,
-  duration = 1, staggerAmount = .45
+  duration = 1, staggerAmount = .45, ease = 'expo.inOut'
 ) {
   if (!letters.length) return timeline;
   // A delayed stagger otherwise applies its first pose only as each tween starts.
   gsap.set(letters, { yPercent: -120 });
   return timeline.fromTo(letters, { yPercent: -120 }, {
-    yPercent: 0, duration, ease: 'expo.inOut',
+    yPercent: 0, duration, ease,
     stagger: { amount: staggerAmount, from: 'start' }
   }, position);
 }

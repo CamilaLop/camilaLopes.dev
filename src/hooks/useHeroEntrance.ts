@@ -15,6 +15,7 @@ export function useHeroEntrance(scope: RefObject<HTMLDivElement | null>, ready: 
     const copies = Array.from(hero.querySelectorAll<HTMLElement>('[data-hero-intro-copy]'));
     const words = copies.flatMap(copy => Array.from(copy.querySelectorAll<HTMLElement>('.hero-intro-text')));
     let timeline: gsap.core.Timeline;
+    let scrollFinish: gsap.core.Tween | undefined;
     const context = gsap.context(() => {
       hero.dataset.heroEntrance = 'running';
       timeline = gsap.timeline({
@@ -24,7 +25,7 @@ export function useHeroEntrance(scope: RefObject<HTMLDivElement | null>, ready: 
         }
       });
       // The loading exits first; each letter rolls down into its existing mask.
-      addTitleLetterReveal(timeline, letters, .04, 1, .5);
+      addTitleLetterReveal(timeline, letters, .08, 1.8, .6, 'power2.inOut');
       copies.forEach((copy, group) => {
         const tokens = copy.querySelectorAll<HTMLElement>('.hero-intro-text');
         timeline.fromTo(tokens, { yPercent: 115 }, {
@@ -33,8 +34,19 @@ export function useHeroEntrance(scope: RefObject<HTMLDivElement | null>, ready: 
         }, .18 + group * .065);
       });
     }, hero);
-    const complete = () => { timeline!.progress(1).kill(); };
-    const scroll = () => { if (window.scrollY > 32) complete(); };
+    const complete = () => {
+      scrollFinish?.kill();
+      timeline!.progress(1).kill();
+    };
+    const scroll = () => {
+      if (window.scrollY <= 32 || timeline!.progress() >= 1 || scrollFinish) return;
+      // Early scrolling settles the letters gently instead of snapping them into place.
+      timeline!.pause();
+      scrollFinish = gsap.to(timeline!, {
+        progress: 1, duration: .45, ease: 'power2.out',
+        onComplete: () => { timeline!.kill(); }
+      });
+    };
     finish.current = complete;
     window.addEventListener('scroll', scroll, { passive: true });
     window.addEventListener('resize', complete);
@@ -42,6 +54,7 @@ export function useHeroEntrance(scope: RefObject<HTMLDivElement | null>, ready: 
       finish.current = null;
       window.removeEventListener('scroll', scroll);
       window.removeEventListener('resize', complete);
+      scrollFinish?.kill();
       context.revert();
       delete hero.dataset.heroEntrance;
     };

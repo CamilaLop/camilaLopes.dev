@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('/assets/fonts/DrukWide-Medium-Trial.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Deliberately scoped: body copy, navigation, controls and labels stay intact. */
+.site .title-druk,
+.site .hero-name {
+  font-family: 'Druk Wide', 'Inter', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: -.025em;
+  line-height: 1.12;
+}
+.site .hero { --opening-size: clamp(24px, 8.3vw, 160px); }
+.site .hero-name { letter-spacing: 0; }
+.site .hero-name-start { width: 5.75em; }
+.site .hero-name-end { width: 4.95em; }
+.site .hero-name .rolling-letter + .rolling-letter { margin-left: -.045em; }
+.site .hero-name .rolling-text { line-height: 1.2; }
+.site .hero-name .rolling-letter { height: 1.2em; }
+.site .project-heading.title-druk { font-size: clamp(28px, 7vw, 120px); }
+.site .gallery.gallery--coverflow .gallery-title.title-druk { font-size: clamp(28px, 5.2vw, 90px); }
+.site .services-title.title-druk { font-size: clamp(28px, 4.5vw, 78px); }
+.site .about-title.title-druk { font-size: clamp(28px, 8.5vw, 145px); }
+.site .contact-title.title-druk { font-size: clamp(26px, 4.2vw, 72px); }
+.site .service-name.title-druk { font-size: clamp(18px, 2vw, 32px); }
+
+@media (max-width: 959px) {
+  .site .services-title.title-druk { font-size: 6vw; }
+  .site .contact-title.title-druk { font-size: 5vw; }
+}
+@media (max-width: 639px) {
+  .site .gallery.gallery--coverflow .gallery-title.title-druk { font-size: 10.5vw; }
+  .site .services-title.title-druk { font-size: 12vw; }
+  .site .contact-title.title-druk { font-size: 10vw; }
+  .site .service-name.title-druk { font-size: clamp(16px, 4.3vw, 25px); }
+}

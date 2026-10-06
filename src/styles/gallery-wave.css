@@ -1,0 +1,14 @@
+/* Independent cover layer: pointer tilt and coverflow keep their transforms. */
+.gallery .gallery-wave-mask {
+  position: absolute;
+  inset: -1px;
+  display: none;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  pointer-events: none;
+  overflow: hidden;
+}
+.gallery-wave-mask > span {
+  background: var(--ink);
+  margin-inline: -.6px;
+}
+html[data-motion='reduce'] .gallery .gallery-wave-mask { display: none !important; }
