@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useLocale } from '../context/LocaleContext';
 import { portfolioProjects, type PortfolioProject } from '../data/projects';
 import { projectMedia } from '../data/projectMedia';
-import { projectCopy } from '../data/projectCopy';
+import { getProjectCopy } from '../data/projectCopy';
 import { heroVideo, videoLabels } from '../data/heroVideo';
 import '../styles/projects-cases.css';
 
@@ -68,7 +68,7 @@ export function Projects({ onInspect, reduced, videoPaused, onVideoPauseChange }
     <div className="projects-stage">
       <div className="projects-stage-top micro"><span>01 / {t.projects.label}</span><span>{t.projects.title}</span></div>
       <div className="projects-panels">{featured.map((project, index) => {
-        const copy = projectCopy[locale][project.id];
+        const copy = getProjectCopy(locale, project);
         const media = projectMedia[project.id] ?? { type: 'image' as const, src: project.image };
         const staticPreview = reduced && (media.type === 'video' || /\.gif(?:\?|$)/i.test(media.src));
         return <article className={`project-panel project-panel--${project.id}`} id={reduced ? `project-${project.id}` : undefined} key={project.id} data-project-index={index} aria-labelledby={`title-${project.id}`}>

@@ -2,7 +2,7 @@ import { titleFont } from '../utils/titleFont';
 import { useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useLocale } from '../context/LocaleContext';
 import { portfolioProjects, type PortfolioProject } from '../data/projects';
-import { projectCopy } from '../data/projectCopy';
+import { getProjectCopy } from '../data/projectCopy';
 import { SectionLabel } from './SectionLabel';
 import '../styles/cases-horizontal.css';
 import '../styles/gallery-coverflow.css';
@@ -81,7 +81,7 @@ export function Gallery({ onInspect }: { onInspect: (project: PortfolioProject) 
       <p id="cases-keyboard" className="sr-only">{t.gallery.keyboard}</p>
       <div ref={viewport} className="cases-viewport" tabIndex={0} role="group" aria-label={t.gallery.sequence} aria-describedby="cases-keyboard" onKeyDown={keydown} onScroll={updateNative}>
       <div id="cases-track" className="gallery-grid cases-track">{remaining.map((project, i) => {
-      const copy = projectCopy[locale][project.id];
+      const copy = getProjectCopy(locale, project);
       return <article className={`gallery-case gallery-case--${i + 1}`} key={project.id} data-gallery-active={current === i ? 'true' : undefined}>
         <div className="case-perspective"><div className="case-scroll-pose"><div className="case-pointer-pose"><button className="gallery-image project-media" data-case-reveal data-horizontal-case-reveal type="button" onClick={() => onInspect(project)} aria-label={`${t.gallery.inspect}: ${project.title}`}>
           <span className="case-reveal-mask"><span className="case-reveal-surface"><span className="case-image-parallax"><img src={project.image} alt={`${project.title} — ${copy.category}`} width={project.imageWidth} height={project.imageHeight} loading="lazy" decoding="async" /></span></span></span>

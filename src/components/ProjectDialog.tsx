@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLocale } from '../context/LocaleContext';
 import type { PortfolioProject } from '../data/projects';
-import { projectCopy } from '../data/projectCopy';
+import { getProjectCopy } from '../data/projectCopy';
 
 export function ProjectDialog({ project, onClose }: { project: PortfolioProject | null; onClose: () => void }) {
   const { t, locale } = useLocale();
@@ -17,7 +17,7 @@ export function ProjectDialog({ project, onClose }: { project: PortfolioProject 
       if (element.open) element.close();
     };
   }, [project]);
-  const copy = project ? projectCopy[locale][project.id] : null;
+  const copy = project ? getProjectCopy(locale, project) : null;
   return <dialog ref={dialog} className="project-dialog" aria-labelledby="project-dialog-title" aria-describedby="project-dialog-summary" onClose={onClose} onClick={event => {
     if (event.target !== event.currentTarget) return;
     const r = event.currentTarget.getBoundingClientRect();
