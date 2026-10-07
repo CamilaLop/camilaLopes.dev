@@ -46,7 +46,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: 'Dashboard Analítico',
     category: 'Dashboard de gestão',
     status: 'live',
-    url: 'https://interactive-sales-dashboard-two.vercel.app/login',
+    url: 'https://interactive-sales-dashboard-two.vercel.app/',
     image: '/assets/projects/sales-dashboard.webp',
     imageWidth: 1500,
     imageHeight: 821,
